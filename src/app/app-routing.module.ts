@@ -10,7 +10,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'logIn',
+    path: 'login',
     component: LoginComponent,
     data: {
       resetCache: true
