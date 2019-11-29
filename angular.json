@@ -118,6 +118,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "AdminShell"
+    }
+  },
+  "defaultProject": "AdminShell",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
