@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthenticationService } from './core/services/Authentication.service';
 
 @NgModule({
   declarations: [AppComponent],

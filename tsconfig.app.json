@@ -9,6 +9,9 @@
       "environment": [
         "environments/environment.ts"
       ],
+      "@webshop/core/*": [
+        "src/app/core/*"
+      ],
     }
   },
   "include": [

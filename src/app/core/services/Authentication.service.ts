@@ -13,7 +13,9 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('currentUser'))
+    );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -23,7 +25,10 @@ export class AuthenticationService {
       .set('password', password);
 
     return this.http
-      .post<any>(environment.api.baseUrl + 'authenticate', { username, password  })
+      .post<any>(environment.api.baseUrl + 'authenticate', {
+        username,
+        password
+      })
       .pipe(
         map(user => {
           if (user && user.customerId) {
@@ -44,13 +49,16 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return true;
-    // return this.currentUser.pipe(
-    //   take(1),
-    //   map(currentUser => !!currentUser),
-    //   tap(isLoggedIn => {
-    //    console.log(isLoggedIn);
-    //   })
-    // );
+    return this.currentUser.pipe(
+      take(1),
+      map(currentUser => !!currentUser),
+      tap(isLoggedIn => {
+        if (!isLoggedIn) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 }
