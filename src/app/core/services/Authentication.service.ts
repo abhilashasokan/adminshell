@@ -9,10 +9,13 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  public currentUser: Observable<User>;
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<any>;
+  private currentUserSubject: BehaviorSubject<any>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   login(username: string, password: string, useLocalStorage: boolean) {
     const body = new HttpParams()
@@ -27,6 +30,7 @@ export class AuthenticationService {
             if (useLocalStorage) {
               localStorage.setItem('currentUser', JSON.stringify(user));
             }
+            this.currentUserSubject.next(user);
           }
           return user;
         })
@@ -36,5 +40,6 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 }

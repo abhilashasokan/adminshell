@@ -8,6 +8,7 @@ export const environment = {
     baseUrl: 'http://ms.iotohome.com/v1/',
     version: 1
   },
+  mainPageUrl: 'dashboard'
 };
 
 /*
