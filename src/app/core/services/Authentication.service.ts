@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'environment';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from '../model/user';
 
@@ -41,5 +41,16 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  isAuthenticated() {
+    return true;
+    // return this.currentUser.pipe(
+    //   take(1),
+    //   map(currentUser => !!currentUser),
+    //   tap(isLoggedIn => {
+    //    console.log(isLoggedIn);
+    //   })
+    // );
   }
 }

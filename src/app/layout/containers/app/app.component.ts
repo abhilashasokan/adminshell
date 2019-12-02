@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Admin Shell';
   isAuthenticated: false;
+  constructor(private authenticationService: AuthenticationService) {
+
+  }
+
   userIsLogged() {
-    return this.isAuthenticated;
+    return this.authenticationService.isAuthenticated();
   }
 }
