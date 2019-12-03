@@ -6,11 +6,13 @@ import { AppComponent } from './containers/app/app.component';
 import {RouterModule} from '@angular/router';
 import { SidebarComponent } from './containers/components/sidebar/sidebar.component';
 import { NavBarComponent } from './containers/components/nav-bar/nav-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FontAwesomeModule
   ],
   declarations: [HeaderComponent, FooterComponent, SidebarComponent, NavBarComponent],
   exports: [
