@@ -14,6 +14,7 @@ export class AppComponent {
   }
 
   userIsLogged() {
+    console.log(this.authenticationService.isAuthenticated());
     return this.authenticationService.isAuthenticated();
   }
 }

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from 'environment';
-import { map, take, tap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { User } from '../model/user';
 
 @Injectable({
@@ -16,6 +16,7 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
+    console.log(this.currentUserSubject);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -49,16 +50,17 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.currentUser.pipe(
-      take(1),
-      map(currentUser => !!currentUser),
-      tap(isLoggedIn => {
-        if (!isLoggedIn) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-    );
+    return false;
+    // return this.currentUser.pipe(
+    //   take(1),
+    //   map(currentUser => !!currentUser),
+    //   tap(isLoggedIn => {
+    //     if (!isLoggedIn) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   })
+    // );
   }
 }
