@@ -1,16 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from './layout/containers/app/app.component';
-import { LayoutModule } from './layout/layout.module';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { AuthenticationService } from './core/services/Authentication.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AppComponent } from './layout/containers/app/app.component';
+import { LayoutModule } from './layout/layout.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,4 +25,4 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

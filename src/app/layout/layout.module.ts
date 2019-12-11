@@ -13,8 +13,8 @@ import { ShellComponent } from './containers/shell/shell.component';
   imports: [
     CommonModule,
     RouterModule,
-    FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   declarations: [HeaderComponent, FooterComponent, SidebarComponent, NavBarComponent, ShellComponent],
   exports: [
