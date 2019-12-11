@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { User } from '../model/user';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +16,23 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
-    console.log(this.currentUserSubject);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   login(username: string, password: string, useLocalStorage: boolean) {
     const body = new HttpParams()
       .set('username', username)
-      .set('password', password);
-
+      .set('password', password)
+      .set('grant_type', 'password');
     return this.http
-      .post<any>(environment.api.baseUrl + 'authenticate', {
-        username,
-        password
-      })
+      .post<any>(`${environment.api.baseUrl}oauth/token?`, body.toString(),
+        {
+          headers:
+            { Authorization: 'Basic ZmxvYXRBcHBVaTpGbDA0dF9MTA==', 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
       .pipe(
         map(user => {
-          if (user && user.customerId) {
+          if (user && user.access_token) {
             if (useLocalStorage) {
               localStorage.setItem('currentUser', JSON.stringify(user));
             }
@@ -50,17 +50,17 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return false;
-    // return this.currentUser.pipe(
-    //   take(1),
-    //   map(currentUser => !!currentUser),
-    //   tap(isLoggedIn => {
-    //     if (!isLoggedIn) {
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //   })
-    // );
+    return this.currentUser.pipe(
+      take(1),
+      map(currentUser => !!currentUser),
+      tap(isLoggedIn => {
+        console.log(isLoggedIn);
+        if (!isLoggedIn) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 }

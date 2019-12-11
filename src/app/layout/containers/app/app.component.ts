@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/services/Authentication.service';
 
 @Component({
@@ -6,11 +6,15 @@ import { AuthenticationService } from '../../../core/services/Authentication.ser
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Admin Shell';
   isAuthenticated: false;
   constructor(private authenticationService: AuthenticationService) {
 
+  }
+
+  ngOnInit() {
+    this.userIsLogged();
   }
 
   userIsLogged() {

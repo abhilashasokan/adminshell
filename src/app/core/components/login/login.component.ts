@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../services/Authentication.service';
-import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'environment';
+import { first } from 'rxjs/operators';
+import { AuthenticationService } from '../../services/Authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private change: ChangeDetectorRef,
     private authenticationService: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.buildLoginForm();
@@ -35,22 +35,22 @@ export class LoginComponent implements OnInit {
 
   private buildLoginForm(): FormGroup {
     return this.formBuilder.group({
-      username: ['anoopjohn02@gmail.com', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      username: ['user@logicline.de', [Validators.required, Validators.email]],
+      password: ['ll_float4pp', [Validators.required]]
     });
   }
 
   login() {
     this.submitted = true;
     this.authenticationService.login(this.f.username.value, this.f.password.value, true).pipe(first())
-    .subscribe(
-      data => {
-        this.router.navigateByUrl(this.redirectUrl);
-      },
-      error => {
-        this.isErrorVisible = true;
-        this.error = error;
-        this.change.markForCheck();
-      });
+      .subscribe(
+        data => {
+          this.router.navigateByUrl(this.redirectUrl);
+        },
+        error => {
+          this.isErrorVisible = true;
+          this.error = error;
+          this.change.markForCheck();
+        });
   }
 }

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: {
-    baseUrl: 'http://ms.iotohome.com/v1/',
+    baseUrl: 'https://floatapp.herokuapp.com/',
     version: 1
   },
   mainPageUrl: 'dashboard'
